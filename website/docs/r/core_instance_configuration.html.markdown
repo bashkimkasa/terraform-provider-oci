@@ -639,9 +639,13 @@ The following arguments are supported:
 
 			**"user_data"** - Provide your own base64-encoded data to be used by Cloud-Init to run custom scripts or provide custom Cloud-Init configuration. For information about how to take advantage of user data, see the [Cloud-Init Documentation](http://cloudinit.readthedocs.org/en/latest/topics/format.html).
 
+			**"user_data_replace_on_change"** - When used in combination with `user_data` will trigger a destroy and recreate when set to `true`. Defaults to `true` if not set.
+
 			**Metadata Example**
 
-			"metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_public_SSH_key>==" } **Getting Metadata on the Instance**
+			"metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_base64_encoded_data>", "user_data_replace_on_change" : false }
+			
+			**Getting Metadata on the Instance**
 
 			To get information about your instance, connect to the instance using SSH and issue any of the following GET requests:
 
@@ -878,9 +882,13 @@ The following arguments are supported:
 
 			  **"user_data"** - Provide your own base64-encoded data to be used by Cloud-Init to run custom scripts or provide custom Cloud-Init configuration. For information about how to take advantage of user data, see the [Cloud-Init Documentation](http://cloudinit.readthedocs.org/en/latest/topics/format.html).
 
+				**"user_data_replace_on_change"** - When used in combination with `user_data` will trigger a destroy and recreate when set to `true`. Defaults to `true` if not set.
+
 			  **Metadata Example**
 
-			  "metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_public_SSH_key>==" } **Getting Metadata on the Instance**
+			  "metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_base64_encoded_data>", "user_data_replace_on_change" : false }
+				
+				**Getting Metadata on the Instance**
 
 			  To get information about your instance, connect to the instance using SSH and issue any of the following GET requests:
 
@@ -1169,9 +1177,13 @@ The following attributes are exported:
 
 			**"user_data"** - Provide your own base64-encoded data to be used by Cloud-Init to run custom scripts or provide custom Cloud-Init configuration. For information about how to take advantage of user data, see the [Cloud-Init Documentation](http://cloudinit.readthedocs.org/en/latest/topics/format.html).
 
+			**"user_data_replace_on_change"** - When used in combination with `user_data` will trigger a destroy and recreate when set to `true`. Defaults to `true` if not set.
+
 			**Metadata Example**
 
-			"metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_public_SSH_key>==" } **Getting Metadata on the Instance**
+			"metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_base64_encoded_data>", "user_data_replace_on_change" : false }
+			
+			**Getting Metadata on the Instance**
 
 			To get information about your instance, connect to the instance using SSH and issue any of the following GET requests:
 
@@ -1402,9 +1414,13 @@ The following attributes are exported:
 
 			  **"user_data"** - Provide your own base64-encoded data to be used by Cloud-Init to run custom scripts or provide custom Cloud-Init configuration. For information about how to take advantage of user data, see the [Cloud-Init Documentation](http://cloudinit.readthedocs.org/en/latest/topics/format.html).
 
+				**"user_data_replace_on_change"** - When used in combination with `user_data` will trigger a destroy and recreate when set to `true`. Defaults to `true` if not set.
+
 			  **Metadata Example**
 
-			  "metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_public_SSH_key>==" } **Getting Metadata on the Instance**
+			  "metadata" : { "quake_bot_level" : "Severe", "ssh_authorized_keys" : "ssh-rsa <your_public_SSH_key>== rsa-key-20160227", "user_data" : "<your_base64_encoded_data>", "user_data_replace_on_change" : false }
+				
+				**Getting Metadata on the Instance**
 
 			  To get information about your instance, connect to the instance using SSH and issue any of the following GET requests:
 

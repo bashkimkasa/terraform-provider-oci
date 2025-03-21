@@ -1547,6 +1547,38 @@ func TestCoreInstanceResource_basic(t *testing.T) {
 				},
 			),
 		},
+		// verify user_data update with user_data_replace_on_change = false
+		{
+			Config: config + compartmentIdVariableStr + managementEndpointStr + CoreInstanceResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Optional, acctest.Update,
+					acctest.GetUpdatedRepresentationCopy("metadata", acctest.Representation{RepType: acctest.Optional, Update: map[string]any{"user_data": "updateValueNotRecreated", "user_data_replace_on_change": false}}, CoreInstanceRepresentation)),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "metadata.user_data", "updateValueNotRecreated"),
+				func(s *terraform.State) (err error) {
+					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
+					if resId != resId2 {
+						return fmt.Errorf("Resource recreated when it was supposed to be updated.")
+					}
+					return err
+				},
+			),
+		},
+		// verify user_data update with user_data_replace_on_change = true
+		{
+			Config: config + compartmentIdVariableStr + managementEndpointStr + CoreInstanceResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Optional, acctest.Update,
+					acctest.GetUpdatedRepresentationCopy("metadata", acctest.Representation{RepType: acctest.Optional, Update: map[string]any{"user_data": "updateValueRecreated", "user_data_replace_on_change": true}}, CoreInstanceRepresentation)),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "metadata.user_data", "updateValueRecreated"),
+				func(s *terraform.State) (err error) {
+					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
+					if resId == resId2 {
+						return fmt.Errorf("Resource was not recreated when it was supposed to be updated.")
+					}
+					return err
+				},
+			),
+		},
 		// verify datasource
 		{
 			Config: config +

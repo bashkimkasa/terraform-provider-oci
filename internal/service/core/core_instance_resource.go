@@ -979,12 +979,17 @@ func CoreInstanceResource() *schema.Resource {
 			},
 		},
 		// CustomizeDiff for Instance resource
-		// Updates of 'ssh_authorized_keys' and 'user_data' in Instance 'metadata' should result in Force New
+		// Updates of 'ssh_authorized_keys' and 'user_data' in Instance 'metadata' should result in Force New,
+		// unless 'user_data_replace_on_change' is set to false, in which case an update to 'user_data' does not Force New
 		CustomizeDiff: customdiff.All(
 			customdiff.ForceNewIfChange("metadata", func(ctx context.Context, old, new, meta interface{}) bool {
 				oldMetadataMap := tfresource.ObjectMapToStringMap(old.(map[string]interface{}))
 				newMetadataMap := tfresource.ObjectMapToStringMap(new.(map[string]interface{}))
-				return (oldMetadataMap["ssh_authorized_keys"] != newMetadataMap["ssh_authorized_keys"]) || (oldMetadataMap["user_data"] != newMetadataMap["user_data"])
+				user_data_replace_on_change := true // default value
+				if val, ok := newMetadataMap["user_data_replace_on_change"]; ok {
+					user_data_replace_on_change, _ = strconv.ParseBool(val)
+				}
+				return (oldMetadataMap["ssh_authorized_keys"] != newMetadataMap["ssh_authorized_keys"]) || (user_data_replace_on_change && oldMetadataMap["user_data"] != newMetadataMap["user_data"])
 			}),
 			customdiff.ForceNewIfChange("platform_config.0.type", func(ctx context.Context, old, new, meta interface{}) bool {
 				return isPlatformConfigBm(old) || isPlatformConfigBm(new)
